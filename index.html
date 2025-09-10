@@ -4,8 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La Gran Caza de Patos</title>
+  
+  <!-- Añadir favicon -->
   <link rel="icon" type="image/png" href="duckgamelogo.png" />
   <link rel="apple-touch-icon" href="duckgamelogo.png" />
+  
   <meta name="description" content="Juego de intercambio con patos en miniatura para la boda: objetivo y reglas básicas." />
   <meta name="theme-color" content="#ffd166" />
   <style>
@@ -115,20 +118,66 @@
     }
     /* Rules */
     .rules{margin-top:16px}
-    .rule{
-      background: var(--card); border:1px solid rgba(255,255,255,0.08);
+    .rule {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: calc(var(--radius) + 4px);
       padding: 14px 16px;
-      transition: background .2s ease, border-color .2s ease, transform .06s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: top;
     }
-    .rule:hover{transform: translateY(-1px)}
-    .rule summary{
-      list-style:none; cursor:pointer; display:flex; align-items:flex-start; gap:12px;
-      user-select:none; font-weight:700;
+
+    .rule:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: var(--shadow);
     }
-    .rule summary::-webkit-details-marker{display:none}
-    .rule .icon{font-size:20px}
-    .rule .content{margin-top:10px; color:var(--text)}
+
+    .rule summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+      font-weight: 700;
+    }
+
+    .rule summary .icon {
+      display: inline-block;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: center;
+    }
+
+    .rule[open] {
+      background: var(--card);
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: var(--shadow);
+    }
+
+    .rule[open] summary .icon {
+      transform: rotate(360deg) scale(1.2);
+    }
+
+    .rule .content {
+      color: var(--text);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      margin-top: 0;
+      padding-top: 0;
+      max-height: 0;
+    }
+
+    .rule[open] .content {
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 16px;
+      padding-top: 16px;
+      max-height: 800px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
     .muted{color:var(--muted)}
     .footer{
       margin:32px 0 24px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
@@ -140,7 +189,7 @@
       pointer-events: none;
       z-index: 5;
       opacity: 0.95;
-      animation: rise 3s ease-out forwards; /* Aumentado de 1.8s a 3s */
+      animation: rise 5s ease-out forwards; /* Aumentado de 1.8s a 3s */
       width: 40px;
       height: 40px;
       background-image: url('duckgamelogo.png');
@@ -265,8 +314,10 @@
     </section>
 
     <footer class="footer">
-      <span>Hecho con 🧡 para una noche inolvidable.</span>
-      <span class="muted">Tip: pulsa “¡A jugar!” para una lluvia de patitos.</span>
+      <div style="display: flex; flex-direction: column; gap: 4px; align-items: center; width: 100%; text-align: center;">
+        <span>Hecho con 🧡 para una noche inolvidable.</span>
+        <span class="muted">Tip: pulsa "¡A jugar!" para una lluvia de patitos.</span>
+      </div>
     </footer>
   </main>
 
